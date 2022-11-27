@@ -37,13 +37,13 @@ function M.cmd(lines, command_args)
             "-d",
             data,
         }
-
-        -- NOTE: untestd on windows, otherwise codeblock shouldn't be scooped
-        if command_args.proxy then
-            table.insert(args, "-x")
-            table.insert(args, command_args.proxy)
-        end
     end
+
+    local options = require("translate.config").get("preset").command["google"]
+    if #options.args > 0 then
+        args = vim.list_extend(args, options.args)
+    end
+
     return cmd, args
 end
 
